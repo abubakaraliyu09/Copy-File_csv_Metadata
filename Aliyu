@@ -1,0 +1,24 @@
+import os
+import shutil
+import csv
+
+keys={}
+c='fullnames.csv'
+with open(c, 'r') as f:
+    reader = csv.reader(f, delimiter=',')
+    for rowDict in reader:
+        keys[rowDict[0]] = rowDict[0]
+        print(rowDict)  # if desired
+
+valid_files = set(keys.values())  # file names found in csv
+dir_src =  '/root/temp/features'
+dir_dst = 'sort'
+for file in os.listdir(dir_src):
+    if file in valid_files:
+        try:
+            
+            src_file = os.path.join(dir_src, file)
+            dst_file = os.path.join(dir_dst, file)
+            shutil.copy(src_file, dst_file)
+        except os.error:
+            continue
